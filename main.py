@@ -1,5 +1,6 @@
 import csv
-admin_pwd = 'qwerty'
+import datetime
+'''admin_pwd = 'qwerty'
 user_type = input("Enter user type. (u for user, a for admin): ").lower()
 username = input("Enter user name: ")
 password = input("Enter password: ")
@@ -14,6 +15,12 @@ user = [username,password,user_type]
 with open('users.csv','a') as user_csv:
     user_writer = csv.writer(user_csv)
     user_writer.writerow(user)
-    user_csv.close()
+    user_csv.close()'''
+def suggest():
+    suggestion = input("Enter suggestion: ")
+    _suggestion = [suggestion]
+    with open('suggestions.csv', 'a') as suggestions:
+        suggestion_writer = csv.writer(suggestions)
+        suggestion_writer.writerow(_suggestion)
 
-
+suggest()
