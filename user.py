@@ -1,26 +1,27 @@
 import csv
 import datetime
-def pwd():
-    # Bugged
-    usrname = input("Enter username: ")
-    new_pwd = ""
-    edit_user = []
-    with open("users.csv",'r') as users_csv:
-        users_reader = csv.DictReader(users_csv)
-        for line in users_reader:
-            if usrname==line['username']:
-                new_pwd = input("Enter new password: ")
-                edit_user = [usrname,new_pwd,line['type']]
-        users_csv.close()
-    
 
-def crime():
+def pwd():
+    # Bugged (idk what to do)
+    usrname = input("Enter username: ")
+    
+    L = []
+    with open("users.csv",'r') as users:
+        users_reader = csv.reader(users)
+        L = list(users_reader)
+        new_pwd = input("Enter new password: ")
+    
+        
+
+
+
+def crime(usrname):        
     STATUS = "No action taken"
     person = input("Enter name of person or the appearance of the person: ")
     location = input("Enter location of crime: ")
     time = input("Enter date and time of the crime: ")
-    _crime = [person,location,time,STATUS]
-    with open('crimes.csv', 'w') as crimes:
+    _crime = [usrname,person,location,time,STATUS]
+    with open('crimes.csv', 'a') as crimes:
         crimes_writer = csv.writer(crimes)
         crimes_writer.writerow(_crime)
 
@@ -53,6 +54,7 @@ def suggest():
     with open('suggestions.csv', 'a') as suggestions:
         suggestion_writer = csv.writer(suggestions)
         suggestion_writer.writerow(_suggestion)
+
 
 def taxes(username):
     income = int(input("Enter income per annum in Rs: "))
