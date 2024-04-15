@@ -1,48 +1,69 @@
 import csv
-import datetime
 import pandas as pd
-# TODO : Only login 
-'''def update_user():
-    with open('users.csv','r') as user_csv:
-        user_reader = csv.reader(user_csv)
-        L=[]
-        c=0
+from admin import add_user,update_user,protest_approval,view_suggestions,remove_user,crime_status
+from user import change_pwd,crime,complaints,protest,suggest
 
-        
-        while c==0:
-            for line in user_reader:
-                for item in line:
-                    print(f"\t{item}",end='')
-                    c+=1
-                break   
-            print()
-        
-        c=1
-        for line in user_reader:
-            print(f"{c}\t",end="")
-            for item in line:
-                print(item,end="\t")
-            print()
-            c+=1
-    
-        
-        
-        L = list(user_reader)
-            #for line in players_reader:
-            # L.append(line)
-        c1=0
-        for i in range(1,len(L)+1):
-            print(f"{i} \t : ",str(L[c1]))
-            c1+=1
-        print(L)
-        row = int(input("Enter user number to change type of: "))
-        new = input("Enter new type: ")
-        L[row][2] = new  
-        with open('users.csv','w+') as users:
-            users_reader = csv.writer(users)
-            for i in range(len(L)):
-                users_reader.writerow(L[i])      
-            
-update_user()'''
+# TODO : Only login
+is_valid_login = False
+username = ""
+password = ""
+user_type = ""
+while is_valid_login == False: 
+    usr = input("Enter username: ")
+    pwd = input("Enter password: ")
+    with open('users.csv','r') as users:
+        valid_user = False
+        users_reader = csv.reader(users)
+        users_data = list(users_reader)
+        for user in users_data:
+            if user[0] == usr and user[1] == pwd:
+                valid_user = True
+                username=usr
+                password=pwd
+                user_type = user[2]
+                is_valid_login = True
+        if valid_user == False:
+            print("Incorrect username or password. Please try again")
+if user_type=="admin":
+    while True:
+        print("What would you like to do?")
+        admin_choice = int(input("1.Update the status of crime reports\n2.Update the status for protest requests\n3.View suggestions\n4.Add users\n5.Update users\n6.Remove users: "))
+        if admin_choice == 1:
+            crime_status()
+        elif admin_choice == 2:
+            protest_approval()
+        elif admin_choice == 3:
+            view_suggestions()
+        elif admin_choice == 4:
+            add_user()
+        elif admin_choice == 5:
+            update_user()
+        elif admin_choice == 6:
+            remove_user()
+        else:
+            print("Invalid input")
+        continue_usage = input("Would you like to continue using the program? y/n: ")
+        if continue_usage == 'n':
+            break
+else:
+    while True:
+        print("What would you like to do?")
+        user_choice = int(input("1.Change your password\n2.Report a crime/View the status of reported crimes\n3.Submit a protest request/View the status of your protest requests\n4.Submit a complaint/View the status of your complaints\n5.Submit a suggestion/View your suggestions: "))
+        if user_choice == 1:
+            change_pwd()
+        elif user_choice == 2:
+            crime(username)
+        elif user_choice == 3:
+            protest(username)
+        elif user_choice == 4:
+            complaints(username)
+        elif user_choice == 5:
+            suggest(username)
+        else:
+            print("Invalid input")
+        continue_usage = input("Would you like to continue using the program? y/n: ")
+        if continue_usage == 'n':
+            break      
+
 
 

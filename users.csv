@@ -1,3 +1,4 @@
 username,password,type
-Sidarth,123,u
-Sid,abc,admin
+Sidarth,1234,admin
+Sid,abcd,user
+Chris,chris,user
